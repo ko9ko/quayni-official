@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>QUAYNI Official</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="QUAYNI is a community-driven token on the Base network inspired by Latin culture, humor, positive energy and social impact in the Andes."
+  />
+  <style>
+    :root {
+      --bg-dark: #050814;
+      --bg-glacier: #0f172a;
+      --bg-panel: rgba(15, 23, 42, 0.9);
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.18);
+      --text-main: #e5f2ff;
+      --text-soft: #b8c7dd;
+      --danger-soft: rgba(248, 113, 113, 0.12);
+      --border-soft: rgba(148, 163, 184, 0.4);
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      --shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.9);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, #1e293b 0, transparent 54%),
+        radial-gradient(circle at bottom, #0f172a 0, #020617 55%);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.07;
+      background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+      mix-blend-mode: soft-light;
+      z-index: 0;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1080px;
+      padding: 24px 16px 48px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #facc15, #f97316 55%, #0f172a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.7),
+        0 18px 38px rgba(8, 47, 73, 0.7);
+      overflow: hidden;
+    }
+
+    .brand-logo span {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0b1120;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #e5f2ff;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 12px;
+      color: var(--text-soft);
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      transition: all 0.16s ease-out;
+      backdrop-filter: blur(16px);
+    }
+
+    nav a:hover {
+      color: #e5f2ff;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+
+    .hero-left {
+      padding: 20px 20px 22px;
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at top left, #1d3557, #020617);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 14px;
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-badge span {
+      display: inline-flex;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+    }
+
+    .hero-title {
+      font-size: clamp(24px, 4vw, 30px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span.accent {
+      background: linear-gradient(to right, #38bdf8, #a5b4fc);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 13px;
+      color: var(--text-soft);
+      max-width: 480px;
+      margin-bottom: 18px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--text-soft);
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      font-size: 12px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.18s ease-out;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      color: #0b1120;
+      font-weight: 600;
+      box-shadow: 0 14px 30px rgba(56, 189, 248, 0.35);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(56, 189, 248, 0.45);
+    }
+
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--text-soft);
+      border-color: rgba(148, 163, 184, 0.6);
+    }
+
+    .btn-ghost:hover {
+      color: #e5f2ff;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.3);
+    }
+
+    .hero-footnote {
+      font-size: 11px;
+      color: var(--text-soft);
+      opacity: 0.8;
+    }
+
+    .hero-right {
+      padding: 16px 16px 18px;
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at top, #1e293b, #020617);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-illustration {
+      position: relative;
+      border-radius: 18px;
+      padding: 12px;
+      background: radial-gradient(circle at top, #1d3557, #020617);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      overflow: hidden;
+      min-height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .glow-circle {
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.55), transparent 60%);
+      filter: blur(1px);
+      opacity: 0.85;
+    }
+
+    .llama-card {
+      position: relative;
+      width: 100%;
+      max-width: 220px;
+      aspect-ratio: 3 / 4;
+      border-radius: 18px;
+      background: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.85);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .llama-tag {
+      align-self: flex-start;
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.86);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .llama-tag span.dot-cold {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #38bdf8;
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25);
+    }
+
+    .llama-figure {
+      margin-top: 6px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .llama-shape {
+      width: 90%;
+      max-width: 150px;
+      aspect-ratio: 3 / 4;
+      border-radius: 80px;
+      background: linear-gradient(to bottom, #f97316, #78350f);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 18px 38px rgba(15, 23, 42, 0.9);
+    }
+
+    .llama-face {
+      position: absolute;
+      top: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 68%;
+      height: 42%;
+      border-radius: 999px;
+      background: #fed7aa;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.6);
+    }
+
+    .llama-eye {
+      position: absolute;
+      top: 38%;
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      background: #020617;
+      box-shadow: 0 0 0 2px #e5e7eb;
+    }
+
+    .llama-eye.left {
+      left: 26%;
+    }
+
+    .llama-eye.right {
+      right: 26%;
+    }
+
+    .llama-mouth {
+      position: absolute;
+      bottom: 18%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40%;
+      height: 18%;
+      border-radius: 999px;
+      background: #0f172a;
+      box-shadow: 0 0 0 2px #e5e7eb;
+    }
+
+    .llama-body-cold {
+      position: absolute;
+      bottom: 12%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110%;
+      height: 52%;
+      border-radius: 90px;
+      background: linear-gradient(to bottom, #f97316, #7f1d1d);
+      filter: saturate(0.7);
+    }
+
+    .llama-scarf {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translateX(-50%) rotate(-3deg);
+      width: 110%;
+      height: 22%;
+      border-radius: 999px;
+      background: linear-gradient(to right, #38bdf8, #0ea5e9);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.9);
+    }
+
+    .llama-breath {
+      position: absolute;
+      top: 32%;
+      right: -6%;
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(248, 250, 252, 0.9), transparent 70%);
+      opacity: 0.7;
+      filter: blur(1px);
+    }
+
+    .llama-ground {
+      position: absolute;
+      bottom: -6%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120%;
+      height: 24%;
+      border-radius: 60%;
+      background: radial-gradient(circle at top, #e5e7eb, #cbd5f5);
+      box-shadow: 0 0 40px rgba(148, 163, 184, 0.6);
+    }
+
+    .llama-caption {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-top: 6px;
+      line-height: 1.45;
+    }
+
+    .llama-caption strong {
+      color: #f97316;
+      font-weight: 600;
+    }
+
+    .metric-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .metric-badge {
+      flex: 1;
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .metric-badge span.value {
+      color: #e5f2ff;
+      font-weight: 600;
+    }
+
+    section {
+      margin-top: 18px;
+      border-radius: var(--radius-lg);
+      background: var(--bg-panel);
+      border: 1px solid var(--border-soft);
+      padding: 16px 16px 18px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(18px);
+    }
+
+    section h2 {
+      font-size: 16px;
+      margin-bottom: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #bfdbfe;
+    }
+
+    section p {
+      font-size: 13px;
+      color: var(--text-soft);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    section ul {
+      list-style: none;
+      margin-top: 4px;
+    }
+
+    section ul li {
+      font-size: 13px;
+      color: var(--text-soft);
+      margin-bottom: 4px;
+      display: flex;
+      gap: 6px;
+    }
+
+    section ul li::before {
+      content: "•";
+      color: var(--accent);
+      margin-top: 1px;
+    }
+
+    .social-impact {
+      border-left: 3px solid #38bdf8;
+      background: linear-gradient(
+        to right,
+        rgba(56, 189, 248, 0.16),
+        rgba(15, 23, 42, 0.9)
+      );
+    }
+
+    .social-impact p.highlight {
+      border-radius: 12px;
+      padding: 10px;
+      background: var(--danger-soft);
+      border: 1px solid rgba(248, 113, 113, 0.3);
+      color: #fecaca;
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+
+    .contract-info code {
+      font-size: 12px;
+      padding: 3px 6px;
+      border-radius: 8px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #bfdbfe;
+    }
+
+    .contract-links {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .contract-links a {
+      font-size: 12px;
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.9);
+      transition: all 0.16s;
+    }
+
+    .contract-links a:hover {
+      border-color: var(--accent);
+      color: #e5f2ff;
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.3);
+    }
+
+    .roadmap-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+    }
+
+    .step-card {
+      border-radius: 14px;
+      padding: 10px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 12px;
+    }
+
+    .step-card h3 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+      color: #bae6fd;
+    }
+
+    .buy-section {
+      background: radial-gradient(circle at top, #172554, #020617);
+      border-color: rgba(56, 189, 248, 0.6);
+    }
+
+    .buy-placeholder {
+      font-size: 12px;
+      padding: 10px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      color: var(--text-soft);
+      margin-top: 8px;
+    }
+
+    footer {
+      margin-top: 22px;
+      font-size: 11px;
+      color: var(--text-soft);
+      text-align: center;
+      opacity: 0.85;
+    }
+
+    footer span {
+      color: #38bdf8;
+      font-weight: 500;
+    }
+
+    @media (max-width: 800px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-right {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .hero-left {
+        padding: 16px 14px 18px;
+      }
+
+      .hero-right {
+        padding: 14px 12px 16px;
+      }
+
+      section {
+        padding: 14px 12px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <main>
+    <header>
+      <div class="brand">
+        <div class="brand-logo">
+          <span>Q</span>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">QUAYNI OFFICIAL</div>
+          <div class="brand-subtitle">
+            Base Network · Social Impact · Community Token
+          </div>
+        </div>
+      </div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#impact">Social Impact</a>
+        <a href="#contract">Contract</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#buy">Buy</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="home">
+      <div class="hero-left">
+        <div class="hero-badge">
+          <span></span>
+          Live on Base · ERC-20
+        </div>
+        <h1 class="hero-title">
+          A cold <span class="accent">Andean llama</span><br />
+          asking for real support.
+        </h1>
+        <p class="hero-subtitle">
+          QUAYNI is a community-driven token on the Base network inspired by
+          Latin culture, humor and positive energy, with a clear mission:
+          support Andean communities and their animals facing extreme cold
+          (“friaje”).
+        </p>
+
+        <div class="hero-tags">
+          <div class="hero-tag">Base Network · Low Fees</div>
+          <div class="hero-tag">Social Impact · Andes</div>
+          <div class="hero-tag">Community-Driven</div>
+        </div>
+
+        <div class="hero-cta">
+          <a href="#impact" class="btn-primary">Read the story</a>
+          <a href="#contract" class="btn-ghost">View contract</a>
+        </div>
+
+        <div class="hero-footnote">
+          No owner · Fixed supply · Transparent mission.
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-illustration">
+          <div class="glow-circle"></div>
+          <div class="llama-card">
+            <div class="llama-tag">
+              <span class="dot-cold"></span>
+              Friaje · Andes
+            </div>
+            <div class="llama-figure">
+              <div class="llama-shape">
+                <div class="llama-face">
+                  <div class="llama-eye left"></div>
+                  <div class="llama-eye right"></div>
+                  <div class="llama-mouth"></div>
+                </div>
+                <div class="llama-body-cold"></div>
+                <div class="llama-scarf"></div>
+                <div class="llama-breath"></div>
+                <div class="llama-ground"></div>
+              </div>
+            </div>
+            <p class="llama-caption">
+              A skinny, tired llama under intense cold:<br />
+              <strong>symbol of vulnerable Andean communities and animals</strong>
+              that QUAYNI wants to support.
+            </p>
+            <div class="metric-row">
+              <div class="metric-badge">
+                <span>Supply</span>
+                <span class="value">1,000,000,000 QUAY</span>
+              </div>
+              <div class="metric-badge">
+                <span>Owner</span>
+                <span class="value">Renounced</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="hero-footnote">
+          Built on Base for affordable transactions and global community access.
+        </p>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2>About QUAYNI</h2>
+      <p>
+        QUAYNI is a community-driven token on the Base network inspired by Latin
+        culture, humor, and positive energy. The project promotes creativity,
+        financial inclusion, and social impact through collective effort and
+        transparency.
+      </p>
+      <p>
+        QUAYNI aims to support social assistance initiatives, helping vulnerable
+        communities and contributing to charitable causes through
+        community-led actions and donations.
+      </p>
+    </section>
+
+    <section id="impact" class="social-impact">
+      <h2>Social Impact · Friaje in the Andes</h2>
+      <p class="highlight">
+        In the Andes, intense cold (“friaje”) is not just “bad weather” – it is
+        a yearly emergency that silently affects families, children, elders and
+        the animals they depend on.
+      </p>
+      <p>
+        En los Andes, cada año ocurre un fenómeno devastador: el friaje intenso.
+      </p>
+      <p>
+        Temperaturas extremas bajo cero, vientos helados, nieve, y noches largas
+        que golpean sin piedad a:
+      </p>
+      <ul>
+        <li>los pobladores de las alturas,</li>
+        <li>niños y ancianos vulnerables,</li>
+        <li>y a los auquenidos: llamas, alpacas y vicuñas.</li>
+      </ul>
+      <p>
+        El friaje no es un simple "frío". Es una emergencia silenciosa que cada
+        año provoca:
+      </p>
+      <ul>
+        <li>pérdida de animales,</li>
+        <li>enfermedades en familias,</li>
+        <li>hambruna,</li>
+        <li>falta de mantas, alimento y refugio,</li>
+        <li>animales delgados, cansados, débiles,</li>
+        <li>niños temblando bajo techos precarios.</li>
+      </ul>
+      <p>
+        En medio de esta realidad surge QUAYNI: un token que busca canalizar
+        recursos, visibilidad y apoyo hacia quienes viven esta situación cada
+        invierno, conectando la tecnología con la solidaridad real.
+      </p>
+    </section>
+
+    <section id="contract" class="contract-info">
+      <h2>Contract · Base Network</h2>
+      <p>
+        QUAYNI is deployed as an ERC-20 token on the Base network with fixed
+        supply and renounced ownership.
+      </p>
+      <p>
+        <strong>Network:</strong> Base Mainnet<br />
+        <strong>Token name:</strong> QUAYNI<br />
+        <strong>Symbol:</strong> QUAY<br />
+        <strong>Decimals:</strong> 18<br />
+        <strong>Total supply:</strong> 1,000,000,000 QUAY
+      </p>
+      <p>
+        <strong>Contract address:</strong><br />
+        <code>0x311cDAc6266C4F83663d537333dfc204B7563aC8</code>
+      </p>
+      <div class="contract-links">
+        <a
+          href="https://base.blockscout.com/address/0x311cDAc6266C4F83663d537333dfc204B7563aC8"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View on Blockscout
+        </a>
+        <a
+          href="https://basescan.org/address/0x311cDAc6266C4F83663d537333dfc204B7563aC8"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View on Basescan
+        </a>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <h2>Roadmap</h2>
+      <div class="roadmap-steps">
+        <div class="step-card">
+          <h3>Phase 1 · Foundation</h3>
+          <p>
+            Token deployment on Base, contract verification, renounce ownership,
+            initial community building, and core narrative around friaje and
+            Andean support.
+          </p>
+        </div>
+        <div class="step-card">
+          <h3>Phase 2 · Social Visibility</h3>
+          <p>
+            Website launch, presence on social networks, partnerships with local
+            initiatives, documentation of needs in Andean regions and
+            transparent communication.
+          </p>
+        </div>
+        <div class="step-card">
+          <h3>Phase 3 · Donations & Support</h3>
+          <p>
+            Organize community-driven campaigns to provide food, blankets and
+            basic supplies for families and animals affected by intense cold in
+            the Andes.
+          </p>
+        </div>
+        <div class="step-card">
+          <h3>Phase 4 · Expansion</h3>
+          <p>
+            Strengthen the ecosystem, expand the community, and create tools for
+            easier contributions, reports and long-term social impact projects.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="buy" class="buy-section">
+      <h2>Buy QUAYNI</h2>
+      <p>
+        QUAYNI will be available through decentralized exchanges on the Base
+        network. Liquidity will be added in a transparent way, and the main
+        pair will be:
+      </p>
+      <ul>
+        <li>QUAY / ETH on a Base DEX (e.g. Uniswap or similar).</li>
+      </ul>
+      <div class="buy-placeholder">
+        Trading details and official links will be added here once liquidity is
+        created. Always verify the contract address before buying:
+        <code>0x311cDAc6266C4F83663d537333dfc204B7563aC8</code>.
+      </div>
+    </section>
+
+    <footer>
+      QUAYNI Official · A community-driven token on Base, supporting Andean
+      communities and their animals against intense cold (“friaje”).<br />
+      <span>Social impact · Transparency · Community.</span>
+    </footer>
+  </main>
+</body>
+</html>
